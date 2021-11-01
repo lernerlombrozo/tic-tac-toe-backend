@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class Board extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'dimension',
-        'size'
+        'board',
     ];
 
     public function game()
     {
-        return $this->belongsTo(Game::class);
+        return $this->hasOne(Game::class);
     }
 }

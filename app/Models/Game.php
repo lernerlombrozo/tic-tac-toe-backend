@@ -14,4 +14,14 @@ class Game extends Model
         'players',
         'currentTurn'
     ];
+
+    public function room()
+    {
+        return $this->hasOne(Room::class);
+    }
+
+    public function board()
+    {
+        return $this->belongsTo(Board::class);
+    }
 }

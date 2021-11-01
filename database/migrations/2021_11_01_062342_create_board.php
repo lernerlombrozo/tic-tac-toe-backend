@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGamesTable extends Migration
+class CreateBoard extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +14,11 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::create('board', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('winner')->nullable();
-            $table->integer('players')->default(1);
-            $table->integer('currentTurn')->default(1);
-            $table->uuidMorphs('room');
+            $table->json('board')->default(new Expression('(JSON_ARRAY())'));
+            $table->uuidMorphs('game');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateGamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('board');
     }
 }
