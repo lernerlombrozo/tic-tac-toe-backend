@@ -5,7 +5,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoard extends Migration
+class CreateBoardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class CreateBoard extends Migration
      */
     public function up()
     {
-        Schema::create('board', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->json('board')->default(new Expression('(JSON_ARRAY())'));
-            $table->uuidMorphs('game');
+            $table->foreignUuid('game_id');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateBoard extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('board');
+        Schema::dropIfExists('boards');
     }
 }

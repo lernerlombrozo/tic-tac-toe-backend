@@ -19,7 +19,7 @@ class CreateGamesTable extends Migration
             $table->string('winner')->nullable();
             $table->integer('players')->default(1);
             $table->integer('currentTurn')->default(1);
-            $table->uuidMorphs('room');
+            $table->foreignUuid('room_id');
         });
     }
 
