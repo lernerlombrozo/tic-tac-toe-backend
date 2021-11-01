@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,34 +19,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/games', function () {
+    return Game::create();
+});
+
+Route::get('/games/{id}', function () {
     return response([
         'name' => 'Abigail',
         'state' => 'CA',
     ], 200);
 });
 
-Route::get('/games/:id', function () {
+Route::post('/games', function () {
+    return Game::create();
+});
+
+Route::put('/games/{id}', function () {
     return response([
         'name' => 'Abigail',
         'state' => 'CA',
     ], 200);
 });
 
-Route::post('/games/:id', function () {
-    return response([
-        'name' => 'Abigail',
-        'state' => 'CA',
-    ], 200);
-});
-
-Route::put('/games', function () {
-    return response([
-        'name' => 'Abigail',
-        'state' => 'CA',
-    ], 200);
-});
-
-Route::delete('/games/:id', function () {
+Route::delete('/games/{id}', function () {
     return response([
         'name' => 'Abigail',
         'state' => 'CA',
