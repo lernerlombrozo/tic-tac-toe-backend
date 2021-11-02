@@ -10,18 +10,13 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'dimension',
+        'size',
+        'player1',
+        'player2',
+        'currentTurn',
         'winner',
-        'players',
-        'currentTurn'
+        'board',
     ];
-
-    public function room()
-    {
-        return $this->hasOne(Room::class);
-    }
-
-    public function board()
-    {
-        return $this->belongsTo(Board::class);
-    }
 }
