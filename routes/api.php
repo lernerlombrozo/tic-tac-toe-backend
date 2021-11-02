@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('/games', GameController::class);
 Route::post('/games/join', [GameController::class, 'join']);
+Route::post('/games/move', [GameController::class, 'move']);

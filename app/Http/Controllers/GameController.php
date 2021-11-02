@@ -79,44 +79,42 @@ class GameController extends Controller
         $p2 = $requestData['player2'];
         $game = Game::find($id);
         $p1 = $game->player1;
-        if ($p2 === $p1) {
+        if ($p2 == $p1) {
             return $game;
         }
-        $game['player2'] = $p2;
-        return $game->update($game);
+        $game->update(['player2' => $p2]);
+        return $game;
     }
 
     /**
      * Move
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function move(Request $request)
     {
         $requestData = $request->all();
-        $currentPlayer = $requestData['currentPlayer'];
+        $currentPlayer = $requestData['player'];
         $move = $requestData['move'];
         $id = $requestData['id'];
         $game = Game::find($id);
         $currentTurn = $game->currentTurn;
-        if ($currentPlayer != $currentTurn) {
-            abort(404);
-        }
         $player1 = $game->player1;
         $player2 = $game->player2;
-        $nextTurn = $currentTurn == $player1 ? $player2 : $player1;
-        $turnIndex = $currentTurn == $player1 ? 1 : 2;
-
+        $playerInTurn = $currentTurn == 1 ? $player1 : $player2;
+        if ($currentPlayer !== $playerInTurn) {
+            return 'bad baby';
+        }
+        $nextTurn = $currentTurn == 1 ? 2 : 1;
         $boardObject = $game->board;
         $board = json_decode($boardObject);
         if (count($move) === 3) {
-            $board[$move[0]][$move[1]][$move[2]] = $turnIndex;
+            $board[$move[0]][$move[1]][$move[2]] = $currentTurn;
         } else {
-            $board[$move[0]][$move[1]] = $turnIndex;
+            $board[$move[0]][$move[1]] = $currentTurn;
         }
-        $game->currentTurn = $nextTurn;
-        return $game->update($game);
+        $game->update(['currentTurn' => $nextTurn, 'board' => $board]);
+        return $game;
     }
 
     /**
